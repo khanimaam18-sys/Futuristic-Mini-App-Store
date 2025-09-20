@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ Futuristic App Store</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+
+  <!-- Particles Background -->
+  <div id="particles-js" style="position: fixed; width: 100%; height: 100%; z-index: -2;"></div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <ul>
+      <li><a href="#" id="home-link">🏠 Home</a></li>
+      <li><a href="#" id="about-link">ℹ️ About</a></li>
+      <li><a href="#" id="contact-link">✉️ Contact</a></li>
+    </ul>
+  </div>
+  <button id="menuBtn" class="menu-btn">☰</button>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo-container">
+      <span class="logo-text">⚡ Futuristic AppStore</span>
+    </div>
+
+    <div class="dropdown">
+      <button class="dropbtn">Apps ▼</button>
+      <div class="dropdown-content">
+        <a href="#" data-app="calculatorApp">Calculator</a>
+        <a href="#" data-app="todoApp">To-Do</a>
+        <a href="#" data-app="notesApp">Notes</a>
+        <a href="#" data-app="weatherApp">Weather</a>
+        <a href="#" data-app="musicApp">Music</a>
+      </div>
+    </div>
+
+    <div class="search-container">
+      <input type="text" id="search" placeholder="🔍 Search apps..." autocomplete="off">
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </nav>
+
+  <!-- Main Dashboard -->
+  <div class="content">
+    <h1 class="title">⚡ Futuristic App Store</h1>
+    <p class="subtitle">Mini Apps at your fingertips</p>
+    <div class="cards" id="appCards">
+      <button class="card" data-app="calculatorApp">🧮 Calculator</button>
+      <button class="card" data-app="todoApp">✅ To-Do</button>
+      <button class="card" data-app="notesApp">📝 Notes</button>
+      <button class="card" data-app="weatherApp">☀️ Weather</button>
+      <button class="card" data-app="musicApp">🎵 Music</button>
+    </div>
+  </div>
+
+  <!-- Calculator App -->
+  <div id="calculatorApp" class="app-container" style="display:none;">
+    <div class="calculator">
+      <input type="text" id="calc-display" readonly>
+      <div class="calc-buttons">
+        <button>7</button><button>8</button><button>9</button><button>/</button>
+        <button>4</button><button>5</button><button>6</button><button>*</button>
+        <button>1</button><button>2</button><button>3</button><button>-</button>
+        <button>0</button><button>.</button><button>=</button><button>+</button>
+        <button>C</button>
+      </div>
+      <button class="back-btn" onclick="closeApp()">⬅ Back</button>
+    </div>
+  </div>
+
+  <!-- To-Do App -->
+  <div id="todoApp" class="app-container" style="display:none;">
+    <div class="todo-app">
+      <h2>✅ To-Do List</h2>
+      <input type="text" id="todo-input" placeholder="Add a new task...">
+      <button id="add-task">Add</button>
+      <ul id="todo-list"></ul>
+      <button class="back-btn" onclick="closeApp()">⬅ Back</button>
+    </div>
+  </div>
+
+  <!-- Notes App -->
+  <div id="notesApp" class="app-container" style="display:none;">
+    <div class="notes-app">
+      <h2>📝 Notes</h2>
+      <textarea id="notes-text" placeholder="Write your notes here..." rows="10" cols="50"></textarea>
+      <br>
+      <button id="save-notes">💾 Save</button>
+      <button id="clear-notes">🗑 Clear</button>
+      <button class="back-btn" onclick="closeApp()">⬅ Back</button>
+    </div>
+  </div>
+
+  <!-- Weather App -->
+  <div id="weatherApp" class="app-container" style="display:none;">
+    <div class="weather-app">
+      <h2>☀️ Futuristic Weather</h2>
+      <input type="text" id="cityInput" placeholder="Enter city">
+      <button id="searchBtn">Search</button>
+      <div id="weatherInfo"></div>
+      <button class="back-btn" onclick="closeApp()">⬅ Back</button>
+    </div>
+  </div>
+
+  <!-- Music App -->
+  <div id="musicApp" class="app-container" style="display:none;">
+    <div class="music-app">
+      <h2>🎵 Futuristic Music Player</h2>
+      <input type="file" id="file-selector" accept="n1.mp3">
+      <audio id="music-audio" controls></audio>
+      <div class="controls">
+        <button id="prev-btn">⏮ Prev</button>
+        <button id="play-btn">▶ Play/Pause</button>
+        <button id="next-btn">⏭ Next</button>
+      </div>
+      <div class="visualizer">
+        <div class="bar" style="--i:1"></div>
+        <div class="bar" style="--i:2"></div>
+        <div class="bar" style="--i:3"></div>
+        <div class="bar" style="--i:4"></div>
+        <div class="bar" style="--i:5"></div>
+        <div class="bar" style="--i:6"></div>
+        <div class="bar" style="--i:7"></div>
+        <div class="bar" style="--i:8"></div>
+      </div>
+      <button class="back-btn" onclick="closeApp()">⬅ Back</button>
+    </div>
+  </div>
+
+  <!-- About & Contact -->
+  <div id="about" style="display:none;">
+    <h2>About</h2>
+    <p>⚡ Futuristic Mini App Store with Calculator, To-Do, Notes, Weather, and Music apps.</p>
+  </div>
+  <div id="contact" style="display:none;">
+    <h2>Contact</h2>
+    <p>Email: khanimaam18@gmail.com</p>
+    <p>Phone: +91-9502817974</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>⚡ Built with ❤️ by SYED IMAAD KHADRI | Cyberpunk Theme</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

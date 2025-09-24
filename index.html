@@ -6,26 +6,24 @@
   <title>⚡ Futuristic App Store</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
   <!-- Particles Background -->
-  <div id="particles-js" style="position: fixed; width: 100%; height: 100%; z-index: -2;"></div>
+  <div id="particles-js"></div>
 
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <ul>
-      <li><a href="#" id="home-link">🏠 Home</a></li>
-      <li><a href="#" id="about-link">ℹ️ About</a></li>
-      <li><a href="#" id="contact-link">✉️ Contact</a></li>
-    </ul>
+  <!-- Futuristic Loading Portal -->
+  <div id="loading-portal">
+    <div class="portal-circle"></div>
+    <p>⚡ Initializing App...</p>
   </div>
-  <button id="menuBtn" class="menu-btn">☰</button>
 
   <!-- Navbar -->
   <nav class="navbar">
     <div class="logo-container">
-      <span class="logo-text">⚡ Futuristic AppStore</span>
+      <span class="logo-text">-----⚡ Futuristic AppStore</span>
+      <span id="current-time" class="current-time"></span>
     </div>
 
     <div class="dropdown">
@@ -43,23 +41,36 @@
       <input type="text" id="search" placeholder="🔍 Search apps..." autocomplete="off">
       <div id="search-results" class="search-results"></div>
     </div>
+
+    <button id="menuBtn" class="menu-btn">☰</button>
   </nav>
 
-  <!-- Main Dashboard -->
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <span class="close-btn" onclick="sidebar.classList.remove('active')">&times;</span>
+    <ul>
+      <li><a href="#" id="home-link">🏠 Home</a></li>
+      <li><a href="#" id="about-link">ℹ️ About</a></li>
+      <li><a href="#" id="contact-link">✉️ Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
   <div class="content">
     <h1 class="title">⚡ Futuristic App Store</h1>
     <p class="subtitle">Mini Apps at your fingertips</p>
-    <div class="cards" id="appCards">
-      <button class="card" data-app="calculatorApp">🧮 Calculator</button>
-      <button class="card" data-app="todoApp">✅ To-Do</button>
-      <button class="card" data-app="notesApp">📝 Notes</button>
-      <button class="card" data-app="weatherApp">☀️ Weather</button>
-      <button class="card" data-app="musicApp">🎵 Music</button>
+
+    <div class="cards-carousel" id="cardsCarousel">
+      <div class="carousel-card" data-app="calculatorApp">🧮 Calculator</div>
+      <div class="carousel-card" data-app="todoApp">✅ To-Do</div>
+      <div class="carousel-card" data-app="notesApp">📝 Notes</div>
+      <div class="carousel-card" data-app="weatherApp">☀️ Weather</div>
+      <div class="carousel-card" data-app="musicApp">🎵 Music</div>
     </div>
   </div>
 
-  <!-- Calculator App -->
-  <div id="calculatorApp" class="app-container" style="display:none;">
+  <!-- App Containers -->
+  <div id="calculatorApp" class="app-container">
     <div class="calculator">
       <input type="text" id="calc-display" readonly>
       <div class="calc-buttons">
@@ -73,8 +84,7 @@
     </div>
   </div>
 
-  <!-- To-Do App -->
-  <div id="todoApp" class="app-container" style="display:none;">
+  <div id="todoApp" class="app-container">
     <div class="todo-app">
       <h2>✅ To-Do List</h2>
       <input type="text" id="todo-input" placeholder="Add a new task...">
@@ -84,20 +94,17 @@
     </div>
   </div>
 
-  <!-- Notes App -->
-  <div id="notesApp" class="app-container" style="display:none;">
+  <div id="notesApp" class="app-container">
     <div class="notes-app">
       <h2>📝 Notes</h2>
-      <textarea id="notes-text" placeholder="Write your notes here..." rows="10" cols="50"></textarea>
-      <br>
+      <textarea id="notes-text" placeholder="Write your notes here..." rows="10"></textarea>
       <button id="save-notes">💾 Save</button>
       <button id="clear-notes">🗑 Clear</button>
       <button class="back-btn" onclick="closeApp()">⬅ Back</button>
     </div>
   </div>
 
-  <!-- Weather App -->
-  <div id="weatherApp" class="app-container" style="display:none;">
+  <div id="weatherApp" class="app-container">
     <div class="weather-app">
       <h2>☀️ Futuristic Weather</h2>
       <input type="text" id="cityInput" placeholder="Enter city">
@@ -107,11 +114,10 @@
     </div>
   </div>
 
-  <!-- Music App -->
-  <div id="musicApp" class="app-container" style="display:none;">
+  <div id="musicApp" class="app-container">
     <div class="music-app">
       <h2>🎵 Futuristic Music Player</h2>
-      <input type="file" id="file-selector" accept="n1.mp3">
+      <input type="file" id="file-selector" accept="audio/*">
       <audio id="music-audio" controls></audio>
       <div class="controls">
         <button id="prev-btn">⏮ Prev</button>
@@ -132,22 +138,49 @@
     </div>
   </div>
 
-  <!-- About & Contact -->
-  <div id="about" style="display:none;">
-    <h2>About</h2>
-    <p>⚡ Futuristic Mini App Store with Calculator, To-Do, Notes, Weather, and Music apps.</p>
-  </div>
-  <div id="contact" style="display:none;">
-    <h2>Contact</h2>
-    <p>Email: khanimaam18@gmail.com</p>
-    <p>Phone: +91-9502817974</p>
-  </div>
+  <!-- About & Contact Sections -->
+  <section id="about">
+    <h1>About Futuristic Mini App Store ⚡</h1>
+    <p>Welcome to <strong>Futuristic Mini App Store</strong> — multiple lightweight apps in one place.</p>
+    <ul>
+      <li>Multiple apps in a single web platform</li>
+      <li>Clean and futuristic UI with glowing effects</li>
+      <li>Responsive design</li>
+      <li>Fast and lightweight</li>
+    </ul>
+    <p>Created by passionate CSE students who love building futuristic solutions.</p>
+  </section>
+
+  <section id="contact">
+    <h1>Contact Us 📩</h1>
+    <ul>
+      <li>Email: khanimaam18@gmail.com</li>
+      <li>Phone: +91 9502817974</li>
+      <li>Location: Hyderabad, India</li>
+    </ul>
+    <form id="contact-form">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="4" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
 
   <!-- Footer -->
   <footer>
     <p>⚡ Built with ❤️ by SYED IMAAD KHADRI | Cyberpunk Theme</p>
   </footer>
 
+  <!-- AI Companion Orb -->
+  <div id="ai-orb">🤖</div>
+  <div id="ai-chat" class="ai-chat">
+    <p id="ai-message">Hi! I’m your AI companion. Want to try a random app?</p>
+    <button id="ai-yes">Yes</button>
+    <button id="ai-no">No</button>
+  </div>
+
   <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
